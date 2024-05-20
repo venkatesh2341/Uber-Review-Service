@@ -11,8 +11,14 @@ import java.util.List;
 
 @Service
 public class ReviewService implements CommandLineRunner {
-    @Autowired
+
     ReviewRepository reviewRepository;
+
+    ReviewService(ReviewRepository reviewRepository)
+    {
+        this.reviewRepository = reviewRepository;
+    }
+
     @Override
     public void run(String... args) throws Exception {
         Review review= Review.builder()
@@ -23,8 +29,9 @@ public class ReviewService implements CommandLineRunner {
         reviewRepository.save(review);
 
         List<Review> reviews= reviewRepository.findAll();
-        for(Review review : reviews)
-            System.out.println(review.toString());
+        for(Review r : reviews) {
+            System.out.println(r.toString());
+        }
 
 
 

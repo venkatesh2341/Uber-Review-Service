@@ -15,15 +15,10 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 @Table(name= "Review")
 @EntityListeners(AuditingEntityListener.class)
-public class Review {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Review extends BaseModel{
 
     @Column(nullable = false)
     private String content;
@@ -31,13 +26,10 @@ public class Review {
     @Column(nullable = false)
     private Double rating;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
+    @Override
+    public String toString()
+    {
+     return "content = "+content + " rating = "+rating + " created at = "+ getCreatedAt() + " updated at = "+ getUpdatedAt();
+    }
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
 }
