@@ -21,17 +21,17 @@ public class ReviewService implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Review review= Review.builder()
-                .content("No safety")
-                .rating(3.5)
-                .build();
+//        Review review= Review.builder()
+//                .content("No safety")
+//                .rating(3.5)
+//                .build();
+//
+//        reviewRepository.save(review);
 
-        reviewRepository.save(review);
-
-        List<Review> reviews= reviewRepository.findAll();
-        for(Review r : reviews) {
-            System.out.println(r.toString());
-        }
+//        List<Review> reviews= reviewRepository.findAll();
+//        for(Review r : reviews) {
+//            System.out.println(r.toString());
+//        }
 
 
 

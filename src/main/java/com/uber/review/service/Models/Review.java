@@ -18,6 +18,7 @@ import java.util.Date;
 @Entity
 @Table(name= "Review")
 @EntityListeners(AuditingEntityListener.class)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Review extends BaseModel{
 
     @Column(nullable = false)
