@@ -1,10 +1,9 @@
 package com.uber.review.service.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -16,21 +15,23 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name= "Review")
-@EntityListeners(AuditingEntityListener.class)
+@Table(name = "booking_review")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Review extends BaseModel{
+
+public class Review extends BaseModel  {
 
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
     private Double rating;
 
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Booking booking; // we have defined a 1:1 relationship between booking and review
+
     @Override
-    public String toString()
-    {
-     return "content = "+content + " rating = "+rating + " created at = "+ getCreatedAt() + " updated at = "+ getUpdatedAt();
+    public String toString() {
+        return "Review: " + this.content + " " + this.rating + " " + " booking: " + this.booking.getId() + " " + this.createdAt;
     }
 
 }

@@ -6,15 +6,15 @@ import com.uber.review.service.Repositories.BookingRepository;
 import com.uber.review.service.Repositories.DriverRepository;
 import com.uber.review.service.Repositories.PassengerRepository;
 import com.uber.review.service.Repositories.ReviewRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
+@Transactional
 public class ReviewService implements CommandLineRunner {
 
     ReviewRepository reviewRepository;
@@ -31,6 +31,17 @@ public class ReviewService implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+
+        List<Long> driverIds= new ArrayList<>(Arrays.asList(10L,20L));
+
+        List<Driver> drivers= driverRepository.findAllByIdIn(driverIds);
+        List<Booking> bookings = bookingRepository.findAllByDriverIn(drivers);
+//
+//        for(Driver driver : drivers)
+//        {
+//            List<Booking> bb = driver.getBookings();
+//        }
 
 
 //        Optional<Review> review= reviewRepository.findById(51L);
@@ -52,12 +63,19 @@ public class ReviewService implements CommandLineRunner {
 //        }
 //
 
-        Passenger passenger= passengerRepository.hqlFindByIdAndName( 30L,"rosey");
-        if(passenger != null)
-        {
-            System.out.println(passenger.getName()+ "   " + passenger.getId() );
-        }
-        else System.out.println("hahah");
+//        Optional<DummyName> passenger= passengerRepository.findByFrefixName( "rosey");
+//        if(passenger != null)
+//        {
+//            System.out.println(passenger.get().getName() );
+//        }
+//        else System.out.println("hahah");
+
+//        Passenger passenger= passengerRepository.hqlFindByIdAndName( 30L,"rosey");
+//        if(passenger != null)
+//        {
+//            System.out.println(passenger.getName()+ "   " + passenger.getId() );
+//        }
+//        else System.out.println("hahah");
 
 //                 Review review= Review.builder()
 //                .content("No safety")

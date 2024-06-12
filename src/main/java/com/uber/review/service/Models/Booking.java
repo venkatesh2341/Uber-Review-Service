@@ -1,36 +1,36 @@
 package com.uber.review.service.Models;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
+@Entity
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@AllArgsConstructor
 public class Booking extends BaseModel{
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private Review review;
-
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private BookingStatus bookingStatus;
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date startTime;
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date endTime;
 
     private Long totalDistance;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startTime;
-
-    @Temporal(TemporalType.DATE)
-    private Date endTime;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Driver driver;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Passenger passenger;
 
 }
